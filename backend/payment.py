@@ -12,9 +12,9 @@ except ImportError:
 # ══════════════════════════════════════════════════════════════════════════════
 #  CONFIG  —  paste your keys from https://dashboard.stripe.com/test/apikeys
 # ══════════════════════════════════════════════════════════════════════════════
-STRIPE_SECRET_KEY      = "sk_test_51TA9eq97PLtv3afElFSmSH7RvrCls3DBbKLEbnXOHFIYChn2UcBnCZ9RXp7PAWErNkygxwL9gIBn7IQUBm8uar3n00U1WlEwRy"
-STRIPE_PUBLISHABLE_KEY = "pk_test_51TA9eq97PLtv3afE79ytu1h0QgZYQZX9tBRLxpAillJzGUhxRq7zO3EAyksHppDELlZXJ56yHnsgCVt7T8Nq9wdk00Entsxhm9"
-STRIPE_WEBHOOK_SECRET  = ""
+STRIPE_SECRET_KEY      = os.getenv("STRIPE_SECRET_KEY")
+STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
+STRIPE_WEBHOOK_SECRET  = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 PRICE_INR              = 1000        # ₹10 in paise
 CURRENCY               = "inr"
 
