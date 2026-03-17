@@ -8,7 +8,7 @@ import sys, os, io, zipfile
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from backend.auth import get_image_history, update_password
 from backend.download_manager import get_download_bytes, get_user_download_history
-from backend.payment import get_user_transactions
+from payment.razorpay_handler import get_user_transactions
 from utils.styles import back_button
 from database.db import get_connection
 

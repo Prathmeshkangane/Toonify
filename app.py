@@ -11,6 +11,7 @@ from frontend.register_page import show_register_page
 from frontend.dashboard_page import show_dashboard
 from frontend.image_processing_page import show_image_processing
 from frontend.other_pages import show_history_page, show_profile_page
+from payment.razorpay_handler import get_user_transactions
 from frontend.payment_page import (
     show_payment_page,
     show_payment_success,
