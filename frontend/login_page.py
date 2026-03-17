@@ -1,15 +1,12 @@
 import streamlit as st
 import sys, os, time
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-
 import streamlit.components.v1 as components
 
-# ── optional: comment out if you don't have this module yet ──
 try:
     from backend.auth import login_user
 except ImportError:
     def login_user(identifier, password):
-        # stub – replace with real auth
         if identifier and password:
             return {"success": True, "user": {"username": identifier}}
         return {"success": False, "message": "Invalid credentials"}
@@ -19,92 +16,102 @@ def show_login_page():
 
     st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Clash+Display:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap');
 
-    html, body, .stApp { margin:0 !important; padding:0 !important; background:#08080F !important; overflow-x:hidden !important; }
+    html, body, .stApp { margin:0 !important; padding:0 !important; background:#06060E !important; overflow-x:hidden !important; }
     #MainMenu, footer, header[data-testid="stHeader"],
     [data-testid="stToolbar"], [data-testid="stDecoration"],
-    [data-testid="stStatusWidget"]                     { display:none !important; }
-    .block-container                                   { padding:0 !important; max-width:100% !important; }
-    section[data-testid="stMain"] > div                { padding:0 !important; }
-    [data-testid="column"]                             { padding:0 !important; gap:0 !important; }
-    .stHorizontalBlock                                 { gap:0 !important; }
+    [data-testid="stStatusWidget"] { display:none !important; }
+    .block-container { padding:0 !important; max-width:100% !important; }
+    section[data-testid="stMain"] > div { padding:0 !important; }
+    [data-testid="column"] { padding:0 !important; gap:0 !important; }
+    .stHorizontalBlock { gap:0 !important; }
 
+    /* ── Input Fields ── */
     .stTextInput > div > div > input {
-        background: rgba(255,255,255,.04) !important;
-        border: 1px solid rgba(255,255,255,.1) !important;
-        border-radius: 10px !important;
-        color: #EEEAF8 !important;
-        padding: 13px 16px !important;
-        font-size: .925rem !important;
-        font-family: 'DM Sans', sans-serif !important;
-        height: 46px !important;
-        transition: border-color .18s, box-shadow .18s !important;
+        background: rgba(255,255,255,.035) !important;
+        border: 1px solid rgba(255,255,255,.08) !important;
+        border-radius: 14px !important;
+        color: #F0ECF8 !important;
+        padding: 14px 18px !important;
+        font-size: .92rem !important;
+        font-family: 'Outfit', sans-serif !important;
+        height: 50px !important;
+        transition: all .2s ease !important;
+        letter-spacing: .01em !important;
     }
     .stTextInput > div > div > input:focus {
-        border-color: #A78BFA !important;
-        box-shadow: 0 0 0 3px rgba(167,139,250,.15) !important;
-        background: rgba(167,139,250,.04) !important;
+        border-color: rgba(147,112,219,.6) !important;
+        box-shadow: 0 0 0 4px rgba(147,112,219,.08), 0 0 20px rgba(147,112,219,.12) !important;
+        background: rgba(147,112,219,.04) !important;
         outline: none !important;
     }
-    .stTextInput > div > div > input::placeholder { color: rgba(255,255,255,.2) !important; }
+    .stTextInput > div > div > input::placeholder { color: rgba(255,255,255,.18) !important; }
     .stTextInput label {
-        font-family: 'DM Sans', sans-serif !important;
-        font-size: .72rem !important;
-        font-weight: 600 !important;
-        color: rgba(255,255,255,.35) !important;
+        font-family: 'Space Mono', monospace !important;
+        font-size: .65rem !important;
+        font-weight: 400 !important;
+        color: rgba(255,255,255,.3) !important;
         text-transform: uppercase !important;
-        letter-spacing: .1em !important;
+        letter-spacing: .14em !important;
+        margin-bottom: 6px !important;
     }
 
+    /* ── Primary Button ── */
     .stButton > button[kind="primary"] {
-        background: linear-gradient(135deg, #A78BFA 0%, #F472B6 100%) !important;
+        background: linear-gradient(135deg, #9370DB 0%, #C471ED 50%, #F64F59 100%) !important;
         color: #fff !important;
         border: none !important;
-        border-radius: 10px !important;
-        height: 46px !important;
-        font-family: 'DM Sans', sans-serif !important;
-        font-weight: 600 !important;
-        font-size: .95rem !important;
-        letter-spacing: .01em !important;
-        box-shadow: 0 4px 24px rgba(167,139,250,.35) !important;
-        transition: all .2s ease !important;
+        border-radius: 14px !important;
+        height: 50px !important;
+        font-family: 'Syne', sans-serif !important;
+        font-weight: 700 !important;
+        font-size: .92rem !important;
+        letter-spacing: .03em !important;
+        box-shadow: 0 4px 30px rgba(147,112,219,.3), 0 0 0 1px rgba(147,112,219,.1) !important;
+        transition: all .25s ease !important;
+        position: relative !important;
+        overflow: hidden !important;
     }
     .stButton > button[kind="primary"]:hover {
         transform: translateY(-2px) !important;
-        box-shadow: 0 10px 40px rgba(167,139,250,.5) !important;
+        box-shadow: 0 8px 40px rgba(147,112,219,.45), 0 0 0 1px rgba(147,112,219,.2) !important;
     }
+    .stButton > button[kind="primary"]:active { transform: translateY(0) !important; }
 
+    /* ── Secondary Button ── */
     .stButton > button:not([kind="primary"]) {
-        background: rgba(255,255,255,.04) !important;
-        color: rgba(255,255,255,.7) !important;
-        border: 1px solid rgba(255,255,255,.1) !important;
-        border-radius: 10px !important;
-        height: 46px !important;
-        font-family: 'DM Sans', sans-serif !important;
+        background: rgba(255,255,255,.03) !important;
+        color: rgba(255,255,255,.6) !important;
+        border: 1px solid rgba(255,255,255,.08) !important;
+        border-radius: 14px !important;
+        height: 50px !important;
+        font-family: 'Outfit', sans-serif !important;
         font-weight: 500 !important;
-        font-size: .9rem !important;
-        transition: all .18s ease !important;
+        font-size: .88rem !important;
+        transition: all .2s ease !important;
     }
     .stButton > button:not([kind="primary"]):hover {
-        border-color: rgba(167,139,250,.4) !important;
-        color: #A78BFA !important;
-        background: rgba(167,139,250,.06) !important;
+        border-color: rgba(147,112,219,.35) !important;
+        color: #C471ED !important;
+        background: rgba(147,112,219,.05) !important;
         transform: translateY(-1px) !important;
     }
 
+    /* ── Checkbox ── */
     .stCheckbox label span {
-        color: rgba(255,255,255,.45) !important;
-        font-family: 'DM Sans', sans-serif !important;
-        font-size: .85rem !important;
+        color: rgba(255,255,255,.4) !important;
+        font-family: 'Outfit', sans-serif !important;
+        font-size: .83rem !important;
     }
 
-    .stSuccess { background: rgba(52,211,153,.07) !important; border:1px solid rgba(52,211,153,.25) !important; border-radius:10px !important; }
-    .stError   { background: rgba(244,114,182,.07) !important; border:1px solid rgba(244,114,182,.22) !important; border-radius:10px !important; }
-    [data-testid="stAlert"] { font-family:'DM Sans',sans-serif !important; font-size:.875rem !important; border-left-width:0 !important; color:#EEEAF8 !important; }
-    .stSpinner > div { border-top-color: #A78BFA !important; }
+    /* ── Alerts ── */
+    .stSuccess { background: rgba(52,211,153,.06) !important; border:1px solid rgba(52,211,153,.2) !important; border-radius:12px !important; }
+    .stError   { background: rgba(246,79,89,.06) !important; border:1px solid rgba(246,79,89,.18) !important; border-radius:12px !important; }
+    [data-testid="stAlert"] { font-family:'Outfit',sans-serif !important; font-size:.875rem !important; border-left-width:0 !important; color:#F0ECF8 !important; }
+    .stSpinner > div { border-top-color: #9370DB !important; }
 
-    /* Remove iframe border/bg */
     iframe { border: none !important; display: block !important; }
     </style>
     """, unsafe_allow_html=True)
@@ -113,50 +120,55 @@ def show_login_page():
 
     # ════════════ LEFT ════════════
     with left:
+        # Logo bar
         st.markdown("""
-        <div style="background:#08080F;padding:40px 56px 28px 56px;
-                    border-right:1px solid rgba(255,255,255,.05);box-sizing:border-box;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:52px;">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <div style="width:32px;height:32px;border-radius:9px;
-                          background:linear-gradient(135deg,#A78BFA,#F472B6);
-                          display:flex;align-items:center;justify-content:center;
-                          box-shadow:0 4px 14px rgba(167,139,250,.4);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-                        stroke="white" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem;
-                           color:#EEEAF8;letter-spacing:-.025em;">CartoonizeMe</span>
+        <div style="display:flex;align-items:center;justify-content:space-between;
+                    padding:40px 60px 0;margin-bottom:48px;">
+          <div style="display:flex;align-items:center;gap:11px;">
+            <div style="width:36px;height:36px;border-radius:10px;
+                        background:linear-gradient(135deg,#9370DB,#C471ED);
+                        display:flex;align-items:center;justify-content:center;
+                        box-shadow:0 4px 16px rgba(147,112,219,.5);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="rgba(255,255,255,.15)"/>
+                <path d="M8 12l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </div>
-            <span style="font-family:'DM Sans',sans-serif;font-size:.83rem;color:rgba(255,255,255,.3);">
-              New here?&nbsp;<span style="color:#A78BFA;font-weight:500;cursor:pointer;">Create account</span>
-            </span>
+            <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;
+                         color:#F0ECF8;letter-spacing:-.03em;">CartoonizeMe</span>
           </div>
-
-          <div style="margin-bottom:28px;">
-            <div style="display:inline-flex;align-items:center;gap:8px;
-                        background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.18);
-                        border-radius:99px;padding:5px 14px;margin-bottom:18px;">
-              <div style="width:6px;height:6px;border-radius:50%;background:#A78BFA;
-                          box-shadow:0 0 8px rgba(167,139,250,.8);"></div>
-              <span style="font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:600;
-                           color:#A78BFA;letter-spacing:.08em;text-transform:uppercase;">AI Art Studio</span>
-            </div>
-            <h1 style="font-family:'Syne',sans-serif;font-weight:800;font-size:2.2rem;
-                       color:#EEEAF8;margin:0 0 10px;letter-spacing:-.04em;line-height:1.15;">
-              Welcome back
-            </h1>
-            <p style="font-family:'DM Sans',sans-serif;font-size:.9rem;
-                      color:rgba(255,255,255,.35);margin:0;line-height:1.6;">
-              Sign in to continue creating stunning art
-            </p>
+          <div style="font-family:'Outfit',sans-serif;font-size:.82rem;color:rgba(255,255,255,.25);">
+            New here?&nbsp;<span style="color:#C471ED;font-weight:600;cursor:pointer;">Create account &#x2197;</span>
           </div>
         </div>
         """, unsafe_allow_html=True)
 
-        _, fc, _ = st.columns([56, 999, 56])
+        # Heading
+        st.markdown("""
+        <div style="padding:0 60px;margin-bottom:28px;">
+          <div style="display:inline-flex;align-items:center;gap:7px;
+                      background:rgba(147,112,219,.07);border:1px solid rgba(147,112,219,.15);
+                      border-radius:99px;padding:4px 13px;margin-bottom:18px;">
+            <div style="width:5px;height:5px;border-radius:50%;background:#C471ED;
+                        box-shadow:0 0 8px rgba(196,113,237,.9);"></div>
+            <span style="font-family:'Space Mono',monospace;font-size:.6rem;
+                         color:#C471ED;letter-spacing:.12em;text-transform:uppercase;">AI Art Studio</span>
+          </div>
+          <h1 style="font-family:'Syne',sans-serif;font-weight:800;font-size:2.6rem;
+                     color:#F0ECF8;margin:0 0 12px;letter-spacing:-.05em;line-height:1.1;">
+            Welcome<br>
+            <span style="background:linear-gradient(135deg,#9370DB,#C471ED,#F64F59);
+                         -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+                         background-clip:text;">back.</span>
+          </h1>
+          <p style="font-family:'Outfit',sans-serif;font-size:.9rem;
+                    color:rgba(255,255,255,.3);margin:0;line-height:1.65;">
+            Sign in to continue creating stunning AI artworks
+          </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        _, fc, _ = st.columns([60, 999, 60])
         with fc:
             identifier = st.text_input(
                 "Email or Username",
@@ -172,13 +184,13 @@ def show_login_page():
             )
 
             st.markdown("""
-            <div style="display:flex;justify-content:flex-end;margin:-4px 0 18px;">
-              <span style="font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;
-                           color:#A78BFA;cursor:pointer;">Forgot password?</span>
+            <div style="display:flex;justify-content:flex-end;margin:-2px 0 20px;">
+              <span style="font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:500;
+                           color:#9370DB;cursor:pointer;opacity:.8;">Forgot password?</span>
             </div>
             """, unsafe_allow_html=True)
 
-            if st.button("Sign in", use_container_width=True, type="primary", key="li_submit"):
+            if st.button("Sign in →", use_container_width=True, type="primary", key="li_submit"):
                 if not identifier or not password:
                     st.error("Please fill in all fields.")
                 else:
@@ -195,12 +207,12 @@ def show_login_page():
                         st.error(result["message"])
 
             st.markdown("""
-            <div style="display:flex;align-items:center;gap:12px;margin:18px 0 14px;">
-              <div style="flex:1;height:1px;background:rgba(255,255,255,.07);"></div>
-              <span style="font-family:'DM Sans',sans-serif;font-size:.72rem;
-                           color:rgba(255,255,255,.22);letter-spacing:.08em;
+            <div style="display:flex;align-items:center;gap:14px;margin:22px 0 18px;">
+              <div style="flex:1;height:1px;background:rgba(255,255,255,.06);"></div>
+              <span style="font-family:'Space Mono',monospace;font-size:.6rem;
+                           color:rgba(255,255,255,.18);letter-spacing:.12em;
                            text-transform:uppercase;white-space:nowrap;">New to CartoonizeMe?</span>
-              <div style="flex:1;height:1px;background:rgba(255,255,255,.07);"></div>
+              <div style="flex:1;height:1px;background:rgba(255,255,255,.06);"></div>
             </div>
             """, unsafe_allow_html=True)
 
@@ -209,226 +221,346 @@ def show_login_page():
                 st.rerun()
 
         st.markdown("""
-        <div style="padding:20px 56px 32px;background:#08080F;
-                    border-right:1px solid rgba(255,255,255,.05);">
-          <p style="font-family:'DM Sans',sans-serif;font-size:.75rem;
-                    color:rgba(255,255,255,.18);line-height:1.7;margin:0;">
+        <div style="padding:20px 60px 32px;background:#06060E;
+                    border-right:1px solid rgba(255,255,255,.04);">
+          <p style="font-family:'Outfit',sans-serif;font-size:.73rem;
+                    color:rgba(255,255,255,.15);line-height:1.7;margin:0;">
             By signing in you agree to our
-            <span style="color:rgba(255,255,255,.38);text-decoration:underline;cursor:pointer;">Terms of Service</span>
+            <span style="color:rgba(255,255,255,.3);text-decoration:underline;cursor:pointer;">Terms of Service</span>
             and
-            <span style="color:rgba(255,255,255,.38);text-decoration:underline;cursor:pointer;">Privacy Policy</span>.
+            <span style="color:rgba(255,255,255,.3);text-decoration:underline;cursor:pointer;">Privacy Policy</span>.
           </p>
         </div>
         """, unsafe_allow_html=True)
 
-    # ════════════ RIGHT — rendered via iframe to support full CSS ════════════
+    # ════════════ RIGHT ════════════
     with right:
         components.html("""
         <!DOCTYPE html>
         <html>
         <head>
         <meta charset="UTF-8">
-        <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
         <style>
-          *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+          *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
           body {
-            background: linear-gradient(145deg, #0D0B18 0%, #130920 50%, #1C0B28 100%);
+            background: #06060E;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 60px 52px;
+            padding: 60px 50px;
             position: relative;
             overflow: hidden;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
           }
 
-          /* ── glowing orbs ── */
-          .orb { position: absolute; border-radius: 50%; pointer-events: none; }
-          .orb-1 { top: -100px; right: -60px; width: 480px; height: 480px;
-                   background: radial-gradient(circle, rgba(167,139,250,.18) 0%, transparent 60%); }
-          .orb-2 { bottom: -80px; left: -80px; width: 420px; height: 420px;
-                   background: radial-gradient(circle, rgba(244,114,182,.14) 0%, transparent 60%); }
-          .orb-3 { top: 50%; left: 20%; width: 280px; height: 280px;
-                   background: radial-gradient(circle, rgba(96,165,250,.08) 0%, transparent 65%); }
-
-          /* ── dot grid ── */
+          /* Background layers */
+          .noise {
+            position: absolute; inset: 0; pointer-events: none; opacity: .025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+          }
           .grid {
             position: absolute; inset: 0; pointer-events: none;
-            background-image: radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px);
-            background-size: 28px 28px;
+            background-image: linear-gradient(rgba(147,112,219,.04) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(147,112,219,.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+          }
+          .orb {
+            position: absolute; border-radius: 50%; pointer-events: none; filter: blur(1px);
+          }
+          .orb-1 {
+            top: -120px; right: -80px; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(147,112,219,.14) 0%, transparent 65%);
+          }
+          .orb-2 {
+            bottom: -100px; left: -60px; width: 440px; height: 440px;
+            background: radial-gradient(circle, rgba(246,79,89,.1) 0%, transparent 65%);
+          }
+          .orb-3 {
+            top: 45%; left: 15%; width: 320px; height: 320px;
+            background: radial-gradient(circle, rgba(196,113,237,.06) 0%, transparent 65%);
           }
 
-          /* ── top rainbow line ── */
-          .top-line {
-            position: absolute; top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, #A78BFA 40%, #F472B6 60%, transparent);
-            opacity: .6;
-          }
-
-          /* ── main content ── */
+          /* Content */
           .content {
             position: relative; z-index: 2;
-            text-align: center; max-width: 400px; width: 100%;
+            text-align: center; max-width: 420px; width: 100%;
           }
 
-          /* icon */
-          .icon-wrap {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 60px; height: 60px; border-radius: 18px; margin-bottom: 24px;
-            background: linear-gradient(135deg, #A78BFA, #F472B6);
-            box-shadow: 0 0 0 8px rgba(167,139,250,.08), 0 8px 32px rgba(167,139,250,.4);
+          /* Floating image preview mockup */
+          .mockup-container {
+            position: relative;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
           }
 
-          /* headline */
+          .mockup-card {
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(0,0,0,.5);
+            animation: floatCard 6s ease-in-out infinite;
+            flex-shrink: 0;
+          }
+          .mockup-card.main {
+            width: 160px;
+            animation-delay: 0s;
+          }
+          .mockup-card.side {
+            width: 110px;
+            opacity: .65;
+          }
+          .mockup-card.side.left {
+            animation: floatCardL 6s ease-in-out infinite;
+            animation-delay: 1s;
+            transform: rotate(-8deg);
+          }
+          .mockup-card.side.right {
+            animation: floatCardR 6s ease-in-out infinite;
+            animation-delay: 2s;
+            transform: rotate(8deg);
+          }
+
+          .img-placeholder {
+            aspect-ratio: 0.85;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            position: relative;
+            overflow: hidden;
+          }
+          .img-placeholder.p1 {
+            background: linear-gradient(145deg,#1a0f2e,#2d1a4d,#1a1232);
+          }
+          .img-placeholder.p2 {
+            background: linear-gradient(145deg,#0d1a2e,#1a2d4d,#0d1832);
+          }
+          .img-placeholder.p3 {
+            background: linear-gradient(145deg,#2e0f1a,#4d1a2d,#320d18);
+          }
+
+          .effect-label {
+            padding: 8px 12px;
+            background: rgba(0,0,0,.4);
+            border-top: 1px solid rgba(255,255,255,.06);
+          }
+          .effect-label p {
+            font-family: 'Space Mono', monospace;
+            font-size: .58rem;
+            color: rgba(255,255,255,.5);
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            margin: 0;
+          }
+
+          /* Floating badge */
+          .float-badge {
+            position: absolute;
+            top: -8px; right: -16px;
+            background: linear-gradient(135deg,#9370DB,#C471ED);
+            border-radius: 99px;
+            padding: 4px 10px;
+            font-family: 'Space Mono', monospace;
+            font-size: .55rem;
+            color: white;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            box-shadow: 0 4px 14px rgba(147,112,219,.5);
+            animation: pulse 2s ease-in-out infinite;
+            white-space: nowrap;
+          }
+
           h2 {
-            font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2rem;
-            color: #EEEAF8; margin: 0 0 12px; letter-spacing: -.04em; line-height: 1.15;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #F0ECF8;
+            margin: 0 0 12px;
+            letter-spacing: -.04em;
+            line-height: 1.15;
           }
           .gradient-text {
-            background: linear-gradient(135deg, #A78BFA 0%, #F472B6 100%);
+            background: linear-gradient(135deg, #9370DB, #C471ED, #F64F59);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
           }
           .subtitle {
-            font-size: .88rem; color: rgba(255,255,255,.35);
-            margin: 0 0 40px; line-height: 1.65;
+            font-size: .87rem;
+            color: rgba(255,255,255,.3);
+            margin: 0 0 36px;
+            line-height: 1.7;
           }
 
-          /* ── feature cards ── */
-          .cards {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 36px;
+          /* Effect cards grid */
+          .effects-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 32px;
           }
-          .card {
+          .effect-chip {
             background: rgba(255,255,255,.03);
             border: 1px solid rgba(255,255,255,.07);
-            border-radius: 14px; padding: 18px 16px; text-align: left;
-            backdrop-filter: blur(12px);
-            transition: border-color .2s, background .2s, transform .2s;
+            border-radius: 12px;
+            padding: 10px 4px;
+            text-align: center;
+            cursor: default;
+            transition: all .3s ease;
           }
-          .card:hover {
-            border-color: rgba(167,139,250,.25);
-            background: rgba(167,139,250,.04);
-            transform: translateY(-2px);
+          .effect-chip:hover {
+            background: rgba(147,112,219,.08);
+            border-color: rgba(147,112,219,.25);
+            transform: translateY(-3px);
           }
-          .card-emoji { font-size: 1.4rem; margin-bottom: 10px; }
-          .card-title {
-            font-family: 'Syne', sans-serif; font-weight: 700; font-size: .85rem;
-            color: #EEEAF8; margin: 0 0 4px;
-          }
-          .card-desc {
-            font-size: .75rem; color: rgba(255,255,255,.28); margin: 0; line-height: 1.5;
+          .effect-chip .emoji { font-size: 1.2rem; display: block; margin-bottom: 4px; }
+          .effect-chip .name {
+            font-family: 'Space Mono', monospace;
+            font-size: .5rem;
+            color: rgba(255,255,255,.3);
+            text-transform: uppercase;
+            letter-spacing: .06em;
           }
 
-          /* ── badges ── */
-          .badges { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
-          .badge {
-            display: flex; align-items: center; gap: 6px;
-            border-radius: 99px; padding: 5px 12px;
-            font-size: .75rem; color: rgba(255,255,255,.4); font-weight: 500;
+          /* Stat pills */
+          .stat-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
           }
-          .badge-green  { background: rgba(52,211,153,.06);  border: 1px solid rgba(52,211,153,.15); }
-          .badge-purple { background: rgba(167,139,250,.06); border: 1px solid rgba(167,139,250,.15); }
-          .badge-pink   { background: rgba(244,114,182,.06); border: 1px solid rgba(244,114,182,.15); }
+          .stat-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 99px;
+            padding: 5px 12px;
+            font-size: .73rem;
+            color: rgba(255,255,255,.4);
+            font-weight: 500;
+          }
+          .pill-green  { background: rgba(52,211,153,.05);  border: 1px solid rgba(52,211,153,.14); }
+          .pill-purple { background: rgba(147,112,219,.05); border: 1px solid rgba(147,112,219,.14); }
+          .pill-red    { background: rgba(246,79,89,.05);   border: 1px solid rgba(246,79,89,.14); }
           .dot { width: 5px; height: 5px; border-radius: 50%; }
-          .dot-green  { background: #34D399; box-shadow: 0 0 6px rgba(52,211,153,.8); }
-          .dot-purple { background: #A78BFA; box-shadow: 0 0 6px rgba(167,139,250,.8); }
-          .dot-pink   { background: #F472B6; box-shadow: 0 0 6px rgba(244,114,182,.8); }
+          .dot-green  { background: #34D399; box-shadow: 0 0 7px rgba(52,211,153,.9); }
+          .dot-purple { background: #9370DB; box-shadow: 0 0 7px rgba(147,112,219,.9); }
+          .dot-red    { background: #F64F59; box-shadow: 0 0 7px rgba(246,79,89,.9); }
 
-          /* ── footer ── */
-          .footer {
-            position: absolute; bottom: 24px; text-align: center; z-index: 2; width: 100%;
-            font-size: .68rem; color: rgba(255,255,255,.12);
-            letter-spacing: .18em; text-transform: uppercase;
-            font-family: 'DM Sans', sans-serif;
+          /* Animations */
+          @keyframes floatCard {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
           }
-
-          /* ── entrance animations ── */
+          @keyframes floatCardL {
+            0%, 100% { transform: translateY(0px) rotate(-8deg); }
+            50% { transform: translateY(-8px) rotate(-8deg); }
+          }
+          @keyframes floatCardR {
+            0%, 100% { transform: translateY(0px) rotate(8deg); }
+            50% { transform: translateY(-10px) rotate(8deg); }
+          }
+          @keyframes pulse {
+            0%, 100% { box-shadow: 0 4px 14px rgba(147,112,219,.5); }
+            50% { box-shadow: 0 4px 24px rgba(147,112,219,.8); }
+          }
           @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(24px); }
             to   { opacity: 1; transform: translateY(0); }
           }
-          .content       { animation: fadeUp .6s ease both; }
-          .card:nth-child(1) { animation: fadeUp .5s .1s ease both; }
-          .card:nth-child(2) { animation: fadeUp .5s .2s ease both; }
-          .card:nth-child(3) { animation: fadeUp .5s .3s ease both; }
-          .card:nth-child(4) { animation: fadeUp .5s .4s ease both; }
+          .content { animation: fadeUp .7s ease both; }
+          .effect-chip:nth-child(1) { animation: fadeUp .4s .05s ease both; }
+          .effect-chip:nth-child(2) { animation: fadeUp .4s .1s ease both; }
+          .effect-chip:nth-child(3) { animation: fadeUp .4s .15s ease both; }
+          .effect-chip:nth-child(4) { animation: fadeUp .4s .2s ease both; }
+          .effect-chip:nth-child(5) { animation: fadeUp .4s .25s ease both; }
+          .effect-chip:nth-child(6) { animation: fadeUp .4s .3s ease both; }
+          .effect-chip:nth-child(7) { animation: fadeUp .4s .35s ease both; }
+          .effect-chip:nth-child(8) { animation: fadeUp .4s .4s ease both; }
+          .effect-chip:nth-child(9) { animation: fadeUp .4s .45s ease both; }
+          .effect-chip:nth-child(10){ animation: fadeUp .4s .5s ease both; }
+
+          .footer {
+            position: absolute; bottom: 20px; text-align: center;
+            z-index: 2; width: 100%;
+            font-family: 'Space Mono', monospace;
+            font-size: .58rem; color: rgba(255,255,255,.1);
+            letter-spacing: .14em; text-transform: uppercase;
+          }
         </style>
         </head>
         <body>
-
-          <!-- background layers -->
+          <div class="noise"></div>
+          <div class="grid"></div>
           <div class="orb orb-1"></div>
           <div class="orb orb-2"></div>
           <div class="orb orb-3"></div>
-          <div class="grid"></div>
-          <div class="top-line"></div>
 
-          <!-- main content -->
           <div class="content">
-
-            <div class="icon-wrap">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-                      stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-
-            <h2>
-              Turn photos into<br>
-              <span class="gradient-text">stunning art</span>
-            </h2>
-            <p class="subtitle">10 AI-powered effects. No watermarks.<br>Free forever.</p>
-
-            <div class="cards">
-              <div class="card">
-                <div class="card-emoji">🎨</div>
-                <p class="card-title">Classic Cartoon</p>
-                <p class="card-desc">Bold outlines &amp; vibrant flat colors</p>
+            <!-- Floating cards mockup -->
+            <div class="mockup-container">
+              <div class="mockup-card side left">
+                <div class="img-placeholder p2">🌊</div>
+                <div class="effect-label"><p>Watercolor</p></div>
               </div>
-              <div class="card">
-                <div class="card-emoji">✏️</div>
-                <p class="card-title">Pencil Sketch</p>
-                <p class="card-desc">Realistic grayscale pencil effect</p>
+
+              <div class="mockup-card main" style="position:relative;">
+                <div class="float-badge">✨ AI Magic</div>
+                <div class="img-placeholder p1" style="font-size:3rem;">🎨</div>
+                <div class="effect-label"><p>Classic Cartoon</p></div>
               </div>
-              <div class="card">
-                <div class="card-emoji">🌊</div>
-                <p class="card-title">Watercolor</p>
-                <p class="card-desc">Soft flowing watercolor painting</p>
-              </div>
-              <div class="card">
-                <div class="card-emoji">⚡</div>
-                <p class="card-title">Neon Glow</p>
-                <p class="card-desc">Cyberpunk neon edge effect</p>
+
+              <div class="mockup-card side right">
+                <div class="img-placeholder p3">⚡</div>
+                <div class="effect-label"><p>Neon Glow</p></div>
               </div>
             </div>
 
-            <div class="badges">
-              <div class="badge badge-green">
-                <div class="dot dot-green"></div>
-                Free forever
-              </div>
-              <div class="badge badge-purple">
-                <div class="dot dot-purple"></div>
-                No watermarks
-              </div>
-              <div class="badge badge-pink">
-                <div class="dot dot-pink"></div>
-                10 AI effects
-              </div>
+            <h2>Turn photos into<br><span class="gradient-text">AI masterpieces</span></h2>
+            <p class="subtitle">10 powerful effects. Instant results.<br>No skills needed.</p>
+
+            <!-- 10 effect chips -->
+            <div class="effects-grid">
+              <div class="effect-chip"><span class="emoji">🎨</span><span class="name">Cartoon</span></div>
+              <div class="effect-chip"><span class="emoji">🌊</span><span class="name">Water</span></div>
+              <div class="effect-chip"><span class="emoji">⚡</span><span class="name">Neon</span></div>
+              <div class="effect-chip"><span class="emoji">✏️</span><span class="name">Sketch</span></div>
+              <div class="effect-chip"><span class="emoji">🖌️</span><span class="name">Oil</span></div>
+              <div class="effect-chip"><span class="emoji">🕹️</span><span class="name">Pixel</span></div>
+              <div class="effect-chip"><span class="emoji">📷</span><span class="name">Vintage</span></div>
+              <div class="effect-chip"><span class="emoji">🌸</span><span class="name">Anime</span></div>
+              <div class="effect-chip"><span class="emoji">💥</span><span class="name">Comic</span></div>
+              <div class="effect-chip"><span class="emoji">🖍️</span><span class="name">Pencil</span></div>
             </div>
 
+            <!-- Stats -->
+            <div class="stat-row">
+              <div class="stat-pill pill-green">
+                <div class="dot dot-green"></div> Free Forever
+              </div>
+              <div class="stat-pill pill-purple">
+                <div class="dot dot-purple"></div> 10 AI Effects
+              </div>
+              <div class="stat-pill pill-red">
+                <div class="dot dot-red"></div> Instant
+              </div>
+            </div>
           </div>
 
-          <div class="footer">CartoonizeMe · AI Art Studio · v2.0</div>
-
+          <div class="footer">CartoonizeMe &nbsp;·&nbsp; AI Art Studio &nbsp;·&nbsp; v2.0</div>
         </body>
         </html>
-        """, height=900, scrolling=False)
+        """, height=920, scrolling=False)
 
 
-# ── entrypoint ──────────────────────────────────────────────
 if __name__ == "__main__":
     st.set_page_config(
         page_title="CartoonizeMe – Sign In",
@@ -438,7 +570,6 @@ if __name__ == "__main__":
     )
     if "page" not in st.session_state:
         st.session_state["page"] = "login"
-
     if st.session_state["page"] == "login":
         show_login_page()
     elif st.session_state["page"] == "dashboard":

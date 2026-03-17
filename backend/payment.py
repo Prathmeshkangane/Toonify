@@ -1,13 +1,15 @@
 from datetime import datetime
 from database.db import get_connection
 
-# FREE MODE ONLY — no Stripe at all
+# FREE MODE ONLY — Razorpay is used for paid downloads (see payment/razorpay_handler.py)
+# This module handles free unlocks only.
 
 def create_payment_intent(user_id: int, image_id: int) -> dict:
+    """Free-mode unlock — no payment gateway needed."""
     return _free_mode_unlock(user_id, image_id)
 
 
-def confirm_payment(payment_intent_id: str) -> dict:
+def confirm_payment(payment_id: str) -> dict:
     return {"success": True, "message": "Free mode active"}
 
 
@@ -25,10 +27,9 @@ def _free_mode_unlock(user_id: int, image_id: int) -> dict:
     if not existing:
         conn.execute("""
             INSERT INTO Transactions
-              (user_id, image_id, stripe_payment_intent_id, amount, currency, status, receipt_id)
+              (user_id, image_id, razorpay_payment_id, amount, currency, status, receipt)
             VALUES (?,?,?,?,?,?,?)
         """, (user_id, image_id, f"FREE_{image_id}", 0.0, "INR", "success", f"free_{image_id}"))
-
         conn.commit()
 
     conn.close()
