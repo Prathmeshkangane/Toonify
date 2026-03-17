@@ -135,7 +135,7 @@ def show_login_page():
               </svg>
             </div>
             <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;
-                         color:#F0ECF8;letter-spacing:-.03em;">CartoonizeMe</span>
+                         color:#F0ECF8;letter-spacing:-.03em;">Toonify</span>
           </div>
           <div style="font-family:'Outfit',sans-serif;font-size:.82rem;color:rgba(255,255,255,.25);">
             New here?&nbsp;<span style="color:#C471ED;font-weight:600;cursor:pointer;">Create account &#x2197;</span>
@@ -175,14 +175,20 @@ def show_login_page():
                 placeholder="you@example.com",
                 key="li_id",
             )
-            show_pw = st.checkbox("Show password", key="li_show")
+            
+            if "li_show" not in st.session_state:
+                st.session_state.li_show = False
+
+            # 2. Use the session state value for the toggle logic
             password = st.text_input(
                 "Password",
-                type="default" if show_pw else "password",
+                type="default" if st.session_state.li_show else "password",
                 placeholder="Your password",
                 key="li_pw",
             )
 
+            # 3. Now place the checkbox below the input
+            st.checkbox("Show password", key="li_show")
             st.markdown("""
             <div style="display:flex;justify-content:flex-end;margin:-2px 0 20px;">
               <span style="font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:500;
@@ -211,7 +217,7 @@ def show_login_page():
               <div style="flex:1;height:1px;background:rgba(255,255,255,.06);"></div>
               <span style="font-family:'Space Mono',monospace;font-size:.6rem;
                            color:rgba(255,255,255,.18);letter-spacing:.12em;
-                           text-transform:uppercase;white-space:nowrap;">New to CartoonizeMe?</span>
+                           text-transform:uppercase;white-space:nowrap;">New to Toofiny?</span>
               <div style="flex:1;height:1px;background:rgba(255,255,255,.06);"></div>
             </div>
             """, unsafe_allow_html=True)
@@ -555,7 +561,7 @@ def show_login_page():
             </div>
           </div>
 
-          <div class="footer">CartoonizeMe &nbsp;·&nbsp; AI Art Studio &nbsp;·&nbsp; v2.0</div>
+          <div class="footer">Tooifny &nbsp;·&nbsp; AI Art Studio &nbsp;·&nbsp; v2.0</div>
         </body>
         </html>
         """, height=920, scrolling=False)
@@ -563,7 +569,7 @@ def show_login_page():
 
 if __name__ == "__main__":
     st.set_page_config(
-        page_title="CartoonizeMe – Sign In",
+        page_title="Toonify – Sign In",
         page_icon="🎨",
         layout="wide",
         initial_sidebar_state="collapsed",

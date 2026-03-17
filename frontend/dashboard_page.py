@@ -101,7 +101,7 @@ def show_dashboard():
           </svg>
         </div>
         <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;
-                     color:#F0ECF8;letter-spacing:-.03em;">CartoonizeMe</span>
+                     color:#F0ECF8;letter-spacing:-.03em;">Toonify</span>
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
         <div style="display:flex;align-items:center;gap:7px;
@@ -377,7 +377,7 @@ def show_dashboard():
     st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
     _, logout_col, _ = st.columns([4, 1, 4])
     with logout_col:
-        if st.button("Sign Out", key="logout_btn", use_container_width=True):
+        if st.button("Sign Out", key="dashboard_logout_btn", use_container_width=True):
             for k in list(st.session_state.keys()):
                 del st.session_state[k]
             st.rerun()

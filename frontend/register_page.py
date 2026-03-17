@@ -65,7 +65,6 @@ def show_register_page():
         letter-spacing: .14em !important;
         margin-bottom: 6px !important;
     }
-
     .stButton > button[kind="primary"] {
         background: linear-gradient(135deg, #9370DB 0%, #C471ED 50%, #F64F59 100%) !important;
         color: #fff !important;
@@ -132,7 +131,7 @@ def show_register_page():
               </svg>
             </div>
             <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;
-                         color:#F0ECF8;letter-spacing:-.03em;">CartoonizeMe</span>
+                         color:#F0ECF8;letter-spacing:-.03em;">Toonify</span>
           </div>
           <div style="font-family:'Outfit',sans-serif;font-size:.82rem;color:rgba(255,255,255,.25);">
             Have account?&nbsp;<span style="color:#C471ED;font-weight:600;cursor:pointer;">Sign in &#x2197;</span>
@@ -212,10 +211,10 @@ def show_register_page():
                 has_len = len(password) >= 8
 
                 def cr(ok, t):
-                    c = "#34D399" if ok else "rgba(255,255,255,.18)"
-                    i = "&#10003;" if ok else "&#8729;"
+                    col = "#34D399" if ok else "rgba(255,255,255,.18)"
+                    icon = "&#10003;" if ok else "&#8729;"
                     return (f'<span style="font-family:\'Space Mono\',monospace;font-size:.6rem;'
-                            f'color:{c};margin-right:10px;">{i} {t}</span>')
+                            f'color:{col};margin-right:10px;">{icon} {t}</span>')
 
                 crit = cr(has_len,"8+ chars") + cr(has_up,"Upper") + cr(has_lo,"Lower") + cr(has_di,"Number") + cr(has_sp,"Symbol")
                 st.markdown(
@@ -294,8 +293,7 @@ def show_register_page():
                 st.rerun()
 
         st.markdown("""
-        <div style="padding:16px 60px 32px;background:#06060E;
-                    border-right:1px solid rgba(255,255,255,.04);">
+        <div style="padding:16px 60px 32px;">
           <p style="font-family:'Outfit',sans-serif;font-size:.73rem;
                     color:rgba(255,255,255,.15);line-height:1.7;margin:0;">
             By creating an account you agree to our
@@ -328,11 +326,6 @@ def show_register_page():
             overflow: hidden;
             font-family: 'Outfit', sans-serif;
           }
-          .noise {
-            position: absolute; inset: 0; pointer-events: none; opacity: .025;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            background-size: 200px 200px;
-          }
           .grid {
             position: absolute; inset: 0; pointer-events: none;
             background-image: linear-gradient(rgba(147,112,219,.04) 1px, transparent 1px),
@@ -346,7 +339,6 @@ def show_register_page():
                    background: radial-gradient(circle, rgba(246,79,89,.1) 0%, transparent 65%); }
           .orb-3 { top: 35%; right: 5%; width: 280px; height: 280px;
                    background: radial-gradient(circle, rgba(52,211,153,.06) 0%, transparent 65%); }
-
           .content {
             position: relative; z-index: 2;
             text-align: center; max-width: 420px; width: 100%;
@@ -368,12 +360,7 @@ def show_register_page():
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
           }
-          .subtitle {
-            font-size: .87rem; color: rgba(255,255,255,.3);
-            margin: 0 0 40px; line-height: 1.7;
-          }
-
-          /* Steps */
+          .subtitle { font-size: .87rem; color: rgba(255,255,255,.3); margin: 0 0 40px; line-height: 1.7; }
           .steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; text-align: left; }
           .step {
             display: flex; align-items: center; gap: 16px;
@@ -386,68 +373,42 @@ def show_register_page():
           .step:nth-child(1) { animation-delay: .1s; }
           .step:nth-child(2) { animation-delay: .2s; }
           .step:nth-child(3) { animation-delay: .3s; }
-          .step:hover {
-            border-color: rgba(147,112,219,.22);
-            background: rgba(147,112,219,.04);
-            transform: translateX(5px);
-          }
+          .step:hover { border-color: rgba(147,112,219,.22); background: rgba(147,112,219,.04); transform: translateX(5px); }
           .step-num {
-            flex-shrink: 0;
-            width: 32px; height: 32px; border-radius: 10px;
+            flex-shrink: 0; width: 32px; height: 32px; border-radius: 10px;
             background: linear-gradient(135deg, rgba(147,112,219,.2), rgba(196,113,237,.12));
             border: 1px solid rgba(147,112,219,.25);
             display: flex; align-items: center; justify-content: center;
-            font-family: 'Space Mono', sans-serif; font-weight: 700; font-size: .68rem;
-            color: #C471ED;
+            font-family: 'Space Mono', sans-serif; font-weight: 700; font-size: .68rem; color: #C471ED;
           }
-          .step-title {
-            font-family: 'Syne', sans-serif; font-weight: 700; font-size: .88rem;
-            color: #F0ECF8; margin: 0 0 2px;
-          }
-          .step-desc {
-            font-size: .76rem; color: rgba(255,255,255,.28); margin: 0; line-height: 1.5;
-          }
-
-          /* Stats */
+          .step-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .88rem; color: #F0ECF8; margin: 0 0 2px; }
+          .step-desc { font-size: .76rem; color: rgba(255,255,255,.28); margin: 0; line-height: 1.5; }
           .stats { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; }
-          .stat-pill {
-            display: flex; align-items: center; gap: 6px;
-            border-radius: 99px; padding: 5px 13px;
-            font-size: .73rem; font-weight: 500; color: rgba(255,255,255,.4);
-          }
+          .stat-pill { display: flex; align-items: center; gap: 6px; border-radius: 99px; padding: 5px 13px; font-size: .73rem; font-weight: 500; color: rgba(255,255,255,.4); }
           .pill-g { background: rgba(52,211,153,.05); border: 1px solid rgba(52,211,153,.14); }
           .pill-p { background: rgba(147,112,219,.05); border: 1px solid rgba(147,112,219,.14); }
-          .pill-r { background: rgba(246,79,89,.05); border: 1px solid rgba(246,79,89,.14); }
+          .pill-r { background: rgba(246,79,89,.05);   border: 1px solid rgba(246,79,89,.14); }
           .dot { width: 5px; height: 5px; border-radius: 50%; }
           .dot-g { background: #34D399; box-shadow: 0 0 7px rgba(52,211,153,.9); }
           .dot-p { background: #9370DB; box-shadow: 0 0 7px rgba(147,112,219,.9); }
           .dot-r { background: #F64F59; box-shadow: 0 0 7px rgba(246,79,89,.9); }
-
           .footer {
-            position: absolute; bottom: 20px; text-align: center;
-            z-index: 2; width: 100%;
-            font-family: 'Space Mono', monospace;
-            font-size: .58rem; color: rgba(255,255,255,.1);
+            position: absolute; bottom: 20px; text-align: center; z-index: 2; width: 100%;
+            font-family: 'Space Mono', monospace; font-size: .58rem; color: rgba(255,255,255,.1);
             letter-spacing: .14em; text-transform: uppercase;
           }
-
-          @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(24px); }
-            to   { opacity: 1; transform: translateY(0); }
-          }
+          @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
           @keyframes iconPulse {
             0%, 100% { box-shadow: 0 0 0 12px rgba(147,112,219,.06), 0 10px 40px rgba(147,112,219,.5); }
-            50% { box-shadow: 0 0 0 18px rgba(147,112,219,.04), 0 10px 50px rgba(147,112,219,.65); }
+            50%       { box-shadow: 0 0 0 18px rgba(147,112,219,.04), 0 10px 50px rgba(147,112,219,.65); }
           }
         </style>
         </head>
         <body>
-          <div class="noise"></div>
           <div class="grid"></div>
           <div class="orb orb-1"></div>
           <div class="orb orb-2"></div>
           <div class="orb orb-3"></div>
-
           <div class="content">
             <div class="icon-wrap">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
@@ -455,42 +416,29 @@ def show_register_page():
                       stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-
             <h2>Three steps to<br><span class="gradient-text">your first artwork</span></h2>
             <p class="subtitle">No design skills needed.<br>Just upload, pick a style, and download.</p>
-
             <div class="steps">
               <div class="step">
                 <div class="step-num">01</div>
-                <div>
-                  <p class="step-title">Upload your photo</p>
-                  <p class="step-desc">Any portrait, selfie, or image — JPG, PNG, WebP</p>
-                </div>
+                <div><p class="step-title">Upload your photo</p><p class="step-desc">Any portrait, selfie, or image — JPG, PNG, WebP</p></div>
               </div>
               <div class="step">
                 <div class="step-num">02</div>
-                <div>
-                  <p class="step-title">Choose an AI style</p>
-                  <p class="step-desc">10 unique effects from cartoon to neon glow</p>
-                </div>
+                <div><p class="step-title">Choose an AI style</p><p class="step-desc">10 unique effects from cartoon to neon glow</p></div>
               </div>
               <div class="step">
                 <div class="step-num">03</div>
-                <div>
-                  <p class="step-title">Download &amp; share</p>
-                  <p class="step-desc">Full resolution, no watermarks, yours forever</p>
-                </div>
+                <div><p class="step-title">Download &amp; share</p><p class="step-desc">Full resolution, no watermarks, yours forever</p></div>
               </div>
             </div>
-
             <div class="stats">
               <div class="stat-pill pill-g"><div class="dot dot-g"></div> Free forever</div>
               <div class="stat-pill pill-p"><div class="dot dot-p"></div> 10 AI styles</div>
               <div class="stat-pill pill-r"><div class="dot dot-r"></div> No watermarks</div>
             </div>
           </div>
-
-          <div class="footer">CartoonizeMe &nbsp;·&nbsp; AI Art Studio &nbsp;·&nbsp; v2.0</div>
+          <div class="footer">Toonify &nbsp;&middot;&nbsp; AI Art Studio &nbsp;&middot;&nbsp; v2.0</div>
         </body>
         </html>
         """, height=920, scrolling=False)
@@ -498,7 +446,7 @@ def show_register_page():
 
 if __name__ == "__main__":
     st.set_page_config(
-        page_title="CartoonizeMe – Create Account",
+        page_title="Toonify – Create Account",
         page_icon="🎨",
         layout="wide",
         initial_sidebar_state="collapsed",
@@ -508,4 +456,4 @@ if __name__ == "__main__":
     if st.session_state["page"] == "register":
         show_register_page()
     elif st.session_state["page"] == "login":
-        st.write("→ Redirected to login page")
+        st.write("Redirected to login page")

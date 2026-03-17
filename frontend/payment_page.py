@@ -343,7 +343,7 @@ def _render_razorpay_widget(order: dict, user: dict):
     function openRazorpay() {{
       var options = {{
         key: "{key_id}", amount: "{amount}", currency: "INR",
-        name: "CartoonizeMe", description: "Artwork Download",
+        name: "Toonify", description: "Artwork Download",
         order_id: "{order_id}",
         prefill: {{ name: "{uname}", email: "{email}" }},
         theme: {{ color: "#9370DB" }},
