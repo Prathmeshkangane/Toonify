@@ -2,10 +2,18 @@
 
 > Transform any photo into stunning artwork using 10 AI-powered effects. Built with Python, Streamlit, OpenCV, and Razorpay.
 
+[![Live Demo](https://img.shields.io/badge/%F0%9F%9A%80%20Live%20Demo-Toonify-9370DB?style=for-the-badge)](https://toonify-prathmesh.streamlit.app)
+
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square&logo=python)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.x-red?style=flat-square&logo=streamlit)
 ![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green?style=flat-square&logo=opencv)
 ![License](https://img.shields.io/badge/License-MIT-purple?style=flat-square)
+
+---
+
+## 🚀 Live Demo
+
+**[👉 Try Toonify here](https://toonify-prathmesh.streamlit.app)**
 
 ---
 
